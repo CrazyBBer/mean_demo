@@ -1,5 +1,6 @@
 /**
  * Created by Administrator on 2015/12/11.
+ *  Description: this is the client side app domain ,controller.
  */
 
 
@@ -12,14 +13,18 @@ index.controller("AppCtrl", function ($http) {
     var  url="http://localhost:3000";
 
     app.saveProduct = function (newProduct) {
-        $http.post(url+"/add",{name:newProduct}).success(function () {
 
+        var new_product ={name:newProduct};
+        $http.post(url+"/add",new_product).success(function () {
+            loadProducts();
         });
     }
 
-
-    $http.get(url).success(function (products) {
-        app.products= products;
-    });
+    function loadProducts() {
+        $http.get(url).success(function (products) {
+            app.products = products;
+        });
+    }
+    loadProducts();
 
 })
